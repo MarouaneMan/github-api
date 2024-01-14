@@ -14,7 +14,7 @@ GITHUB_TOKEN=xxxxxxxxxxxxx docker compose up
 
 This solution represents a prototype and does not reflect the final architecture, as it is challenging to implement within a tight time box.
 
-The first design decision I faced was finding the best spot to pull Github data. There are generally two choices: either do it in the /repos handler or run a job periodically to fetch the data.
+The first design decision I faced was finding the best spot to pull Github data. There are generally two choices: either do it in the `/repos` handler or run a job periodically to fetch the data.
 
 I went with the second option. Fetching external data in a handler is not scalable; it might work for 100 repositories but will certainly timeout for a larger dataset.
 
