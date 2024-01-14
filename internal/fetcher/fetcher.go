@@ -38,6 +38,7 @@ func Run(
 	ctx context.Context,
 	config *config.Config,
 	storeWriter kvstore.Writer,
+	httpTransport http.RoundTripper,
 ) {
 	// Fetch all repositories
 	log := logger.Get(ctx)
@@ -45,11 +46,6 @@ func Run(
 	defer func() {
 		log.Info("Fetching repositories finished")
 	}()
-
-	// http.transport is reused to avoid creating too many connections
-	httpTransport := &http.Transport{
-		MaxConnsPerHost: 5, // do not overwhelm Github, http/2.0 takes care of concurrency
-	}
 
 	// fetch and parse repositories
 	githubRepositories, err := fetchRepositories(ctx, config, httpTransport)
@@ -84,7 +80,7 @@ func Run(
 
 // fetchRepositories fetches a list of repositories from GitHub.
 // It makes an HTTP GET request to the GitHub API and returns a slice of githubRepository.
-func fetchRepositories(ctx context.Context, config *config.Config, httpTransport *http.Transport) ([]*githubRepository, error) {
+func fetchRepositories(ctx context.Context, config *config.Config, httpTransport http.RoundTripper) ([]*githubRepository, error) {
 
 	// Create a context with a timeout
 	ctxWithTimeout, cancel := context.WithTimeout(ctx, time.Second*30)
@@ -123,7 +119,7 @@ func fetchRepositories(ctx context.Context, config *config.Config, httpTransport
 
 // fetchRepositoryLanguages fetches programming languages for a given repository.
 // The result is directly updated in the provided repo object.
-func fetchRepositoryLanguages(ctx context.Context, config *config.Config, httpTransport *http.Transport, repo *githubRepository) error {
+func fetchRepositoryLanguages(ctx context.Context, config *config.Config, httpTransport http.RoundTripper, repo *githubRepository) error {
 
 	// Create a context with a timeout
 	ctxWithTimeout, cancel := context.WithTimeout(ctx, time.Second*30)
