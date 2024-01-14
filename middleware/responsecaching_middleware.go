@@ -38,7 +38,6 @@ func (rcm *responseCachingMiddleware) Apply(next handlers.HandlerFunc) handlers.
 		cachedResponse, ok := rcm.storeReader.Read(r.Context(), r.URL.String()).(*cachedItem)
 		if ok {
 			log.Debug("Cache hit")
-			log.Info(cachedResponse.headers)
 			for key, values := range cachedResponse.headers {
 				for _, value := range values {
 					w.Header().Add(key, value)
