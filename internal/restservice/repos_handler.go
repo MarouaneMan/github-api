@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-// ReposHandler returns n latest git repositories
+// ReposHandler returns filtered Git repositories as JSON.
 func ReposHandler(storeReader kvstore.Reader) func(http.ResponseWriter, *http.Request, map[string]string) error {
 	return func(w http.ResponseWriter, r *http.Request, params map[string]string) error {
 		log := logger.Get(r.Context())
