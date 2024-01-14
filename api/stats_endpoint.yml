@@ -1,0 +1,44 @@
+openapi: 3.0.0
+info:
+  title: Statistics API
+  description: API for retrieving statistics for Git repositories (UNSTABLE).
+  version: 0.0.1
+paths:
+  /stats:
+    get:
+      summary: Retrieve statistics for Git repositories
+      parameters:
+        - name: language
+          in: query
+          description: Target programming language for statistics
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stats'
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    Stats:
+      type: object
+      properties:
+        language:
+          type: string
+          description: Target programming language for statistics
+        total_usage:
+          type: integer
+          description: Total number of repositories using the language
+        total_code_size:
+          type: integer
+          description: Total code size in bytes across all repositories using the language
+        total_repositories:
+          type: integer
+          description: Total number of repositories in the dataset
+        average_code_size:
+          type: integer
+          description: Average code size in bytes per repository using the language

@@ -1,0 +1,60 @@
+openapi: 3.0.0
+info:
+  title: Repositories API
+  description: API for retrieving filtered Git repositories (UNSTABLE).
+  version: 0.0.1
+paths:
+  /repos:
+    get:
+      summary: Retrieve filtered Git repositories
+      parameters:
+        - name: language
+          in: query
+          description: Filter by programming language
+          schema:
+            type: string
+        - name: owner
+          in: query
+          description: Filter by repository owner
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: Limit the number of results
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Repository'
+        '500':
+          description: Internal server error
+components:
+  schemas:
+    Repository:
+      type: object
+      properties:
+        full_name:
+          type: string
+          description: Full name of the repository
+        owner:
+          type: string
+          description: Owner of the repository
+        repository:
+          type: string
+          description: Name of the repository
+        languages:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/Language'
+    Language:
+      type: object
+      properties:
+        bytes:
+          type: integer
+          description: Size of the language in bytes
