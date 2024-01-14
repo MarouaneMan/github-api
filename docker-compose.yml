@@ -1,0 +1,12 @@
+version: '3'
+services:
+  web:
+    build: .
+    volumes:
+      - ./:/go/src/github.com/Scalingo/sclng-backend-test-v1
+    environment:
+      GITHUB_TOKEN: "${GITHUB_TOKEN}"
+    ports:
+      - "5000:5000"
+    command: reflex -r '\.go$$' -s -- sh -c 'go build -buildvcs=false -o sclng-backend-test-v1 ./cmd/restservice/main.go && ./sclng-backend-test-v1'
+    stop_signal: SIGKILL
