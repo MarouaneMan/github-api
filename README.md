@@ -10,6 +10,12 @@
 GITHUB_TOKEN=xxxxxxxxxxxxx docker compose up
 ```
 
+### OpenAPI TL;DR
+```
+GET http://localhost:5000/repos?language=ruby&owner=wycats&limit=1
+GET http://localhost:5000/stats?language=ruby
+```
+
 ## Design decisions
 
 This solution represents a prototype and does not reflect the final architecture, as it is challenging to implement within a tight time box.
