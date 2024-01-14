@@ -43,6 +43,7 @@ func (rcm *responseCachingMiddleware) Apply(next handlers.HandlerFunc) handlers.
 					w.Header().Add(key, value)
 				}
 			}
+			w.Header().Add("X-From-Cache", "True")
 			w.WriteHeader(cachedResponse.statusCode)
 			_, err := w.Write(cachedResponse.body)
 			return err
