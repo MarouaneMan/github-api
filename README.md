@@ -34,4 +34,4 @@ I've implemented an in-memory store to cache data pulled from github as well as 
 
 ## Final architecture
 
-![](E:\projects\go\github-api\architecture.png)
+![](architecture.png)
