@@ -32,6 +32,8 @@ Using a standalone job to fetch data outside of the API service eases maintenanc
 
 I've implemented an in-memory store to cache data pulled from github as well as handlers responses, this store is meant to be replaced by a redis one.
 
+The key-value store implements two interfaces: Reader and Writer. This separation allows for write requests to be forwarded to the master, and read requests to be directed to slaves.
+
 ## Leftovers
 
 - Currently, the fetcher job runs within the same process as the API service, it should be moved to its own process and run from a dedicated node.
