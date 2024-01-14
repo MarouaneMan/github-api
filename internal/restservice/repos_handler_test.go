@@ -11,50 +11,11 @@ import (
 	"testing"
 )
 
-var repos = []*api.Repository{
-	{
-		Repository: "repo1",
-		Owner:      "owner1",
-		Languages: map[string]api.Language{
-			"golang": {
-				Bytes: 1234,
-			},
-		},
-	},
-	{
-		Repository: "repo2",
-		Owner:      "owner2",
-		Languages: map[string]api.Language{
-			"c++": {
-				Bytes: 1234,
-			},
-		},
-	},
-	{
-		Repository: "repo3",
-		Owner:      "owner3",
-		Languages: map[string]api.Language{
-			"golang": {
-				Bytes: 1234,
-			},
-		},
-	},
-	{
-		Repository: "repo4",
-		Owner:      "owner3",
-		Languages: map[string]api.Language{
-			"golang": {
-				Bytes: 1234,
-			},
-		},
-	},
-}
-
 func TestReposHandler(t *testing.T) {
 
 	store := kvstore.NewInMemoryStore(kvstore.DefaultExpiration, kvstore.DefaultExpiration)
 
-	_ = store.Write(context.Background(), "repositories", repos, kvstore.NoExpiration)
+	_ = store.Write(context.Background(), "repositories", reposMock, kvstore.NoExpiration)
 
 	// Create a request with the desired query parameters
 	req, err := http.NewRequest("GET", "/repositories?language=golang&owner=owner3&limit=1", nil)
@@ -67,7 +28,7 @@ func TestReposHandler(t *testing.T) {
 	handler := ReposHandler(store)
 	err = handler(rr, req, nil)
 	if err != nil {
-		t.Fatalf("Failed to handle repos request: %v", err)
+		t.Fatalf("Failed to handle reposMock request: %v", err)
 		return
 	}
 
