@@ -39,6 +39,7 @@ The key-value store implements two interfaces: Reader and Writer. This separatio
 - Currently, the fetcher job runs within the same process as the API service, it should be moved to its own process and run from a dedicated node.
 - The fetcher doesn't use any rate-limit to request data, it should have one to avoid being blocked/rate-limited by Github in case we want to load more than 100 repositories.
 - Find a way to get the latest repositories instead of the oldest ones: I didn't find any way to achieve this.
+- Store the repository's `updatedAt` field and do not refetch its language if it is up to date.
 
 ## Final architecture
 
