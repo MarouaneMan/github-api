@@ -32,7 +32,7 @@ func main() {
 	}
 
 	// Instantiate a new key value store
-	store := kvstore.NewInMemoryStore(30*time.Second, 30*time.Minute)
+	store := kvstore.NewInMemoryStore(30*time.Minute, 30*time.Minute)
 
 	// Spawn fetcher job to periodically pull Github data
 	// !! Usually this block needs to run in its own process/dedicated node when using redis as a backend store
